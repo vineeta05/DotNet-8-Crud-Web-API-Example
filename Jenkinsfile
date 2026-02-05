@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -16,7 +17,15 @@ pipeline {
                   -v $PWD:/app \
                   -w /app \
                   mcr.microsoft.com/dotnet/sdk:8.0 \
-                  dotnet build ~/DotNet-8-Crud-Web-API-Example/DotNetCrudWebApi 
+                  ls -R
+                '''
+
+                sh '''
+                docker run --rm \
+                  -v $PWD:/app \
+                  -w /app \
+                  mcr.microsoft.com/dotnet/sdk:8.0 \
+                  dotnet build ~/DotNet-8-Crud-Web-API-Example/DotNetCrudWebApi
                 '''
             }
         }
