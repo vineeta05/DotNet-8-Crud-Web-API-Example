@@ -1,20 +1,35 @@
-stage('Build .NET Project') {
-    steps {
+pipeline {
+    agent any
 
-        sh """
-        docker run --rm \
-          -v ${WORKSPACE}:/app \
-          -w /app \
-          mcr.microsoft.com/dotnet/sdk:8.0 \
-          ls -R
-        """
+    stages {
 
-        sh """
-        docker run --rm \
-          -v ${WORKSPACE}:/app \
-          -w /app \
-          mcr.microsoft.com/dotnet/sdk:8.0 \
-          dotnet build
-        """
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build .NET Project') {
+            steps {
+
+                sh """
+                docker run --rm \
+                  -v ${WORKSPACE}:/app \
+                  -w /app \
+                  mcr.microsoft.com/dotnet/sdk:8.0 \
+                  ls -R
+                """
+
+                sh """
+                docker run --rm \
+                  -v ${WORKSPACE}:/app \
+                  -w /app \
+                  mcr.microsoft.com/dotnet/sdk:8.0 \
+                  dotnet build
+                """
+
+            }
+        }
+
     }
 }
