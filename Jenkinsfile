@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh '''
                 docker run --rm \
-                  -v $PWD:/app \
+                  -v $workspace:/app \
                   -w /app \
                   mcr.microsoft.com/dotnet/sdk:8.0 \
                   ls -R
