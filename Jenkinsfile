@@ -16,7 +16,7 @@ pipeline {
                   -v $PWD:/app \
                   -w /app \
                   mcr.microsoft.com/dotnet/sdk:8.0 \
-                  dotnet build
+                  dotnet build ~/DotNet-8-Crud-Web-API-Example/DotNetCrudWebApi 
                 '''
             }
         }
