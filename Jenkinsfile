@@ -1,34 +1,20 @@
+stage('Build .NET Project') {
+    steps {
 
-pipeline {
-    agent any
+        sh """
+        docker run --rm \
+          -v ${WORKSPACE}:/app \
+          -w /app \
+          mcr.microsoft.com/dotnet/sdk:8.0 \
+          ls -R
+        """
 
-    stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Build .NET Project') {
-            steps {
-                sh '''
-                docker run --rm \
-                  -v $workspace:/app \
-                  -w /app \
-                  mcr.microsoft.com/dotnet/sdk:8.0 \
-                  ls -R
-                '''
-
-                sh '''
-                docker run --rm \
-                  -v $PWD:/app \
-                  -w /app \
-                  mcr.microsoft.com/dotnet/sdk:8.0 \
-                  dotnet build ~/DotNet-8-Crud-Web-API-Example/DotNetCrudWebApi
-                '''
-            }
-        }
-
+        sh """
+        docker run --rm \
+          -v ${WORKSPACE}:/app \
+          -w /app \
+          mcr.microsoft.com/dotnet/sdk:8.0 \
+          dotnet build
+        """
     }
 }
